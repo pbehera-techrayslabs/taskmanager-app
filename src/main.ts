@@ -9,10 +9,11 @@ let tasks: Task[] = [];
 
 
     const button = document.getElementById("add-btn") as HTMLButtonElement;
+      button.addEventListener("click",addtask);
    
     const template = document.getElementById("task-template") as HTMLTemplateElement;
        const tasklist = document.getElementById("tasklist") as HTMLDivElement;
-       button addEventListener("click",addtask);
+     
 
 
 function addtask() {
@@ -37,14 +38,24 @@ function addtask() {
 }
 
 function displayTasks() {
+    const template= document.getElementById("task-template") as HTMLTemplateElement
   
     tasklist.innerHTML ="";
 
-    tasks.forEach((task, index) => {
-        const li = document.createElement("li");
-            tasklist.innerHTML +=
-            `<li> 
-            ${task.title} - ${task.date} -${task.status}
-            </li>`;
-    });
-}
+    tasks.forEach((task,index) => {
+    
+        const clone = template.content.cloneNode(true) as DocumentFragment;
+         const title=clone.querySelector(".task-name") as HTMLElement;
+         title.textContent= task.title;
+
+         const date=clone.querySelector(".task-date") as HTMLElement;
+         date.textContent=task.date;
+
+         const status= clone.querySelector(".task-status") as HTMLSelectElement;
+
+         status.value=task.status;
+         status.addEventListener("change", ()=>{
+            task.status = status.value;
+         });
+        tasklist.appendChild(clone);
+})}

@@ -1,9 +1,8 @@
 let tasks = [];
 const button = document.getElementById("add-btn");
+button.addEventListener("click", addtask);
 const template = document.getElementById("task-template");
 const tasklist = document.getElementById("tasklist");
-button;
-addEventListener("click", addtask);
 function addtask() {
     const titleinput = document.getElementById("title");
     const dateinput = document.getElementById("date");
@@ -22,13 +21,20 @@ function addtask() {
     dateinput.value = "";
 }
 function displayTasks() {
+    const template = document.getElementById("task-template");
     tasklist.innerHTML = "";
     tasks.forEach((task, index) => {
-        const li = document.createElement("li");
-        tasklist.innerHTML +=
-            `<li> 
-            ${task.title} - ${task.date} -${task.status}
-            </li>`;
+        const clone = template.content.cloneNode(true);
+        const title = clone.querySelector(".task-name");
+        title.textContent = task.title;
+        const date = clone.querySelector(".task-date");
+        date.textContent = task.date;
+        const status = clone.querySelector(".task-status");
+        status.value = task.status;
+        status.addEventListener("change", () => {
+            task.status = status.value;
+        });
+        tasklist.appendChild(clone);
     });
 }
 export {};
