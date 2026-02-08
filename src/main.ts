@@ -56,6 +56,13 @@ function displayTasks() {
          
          status.addEventListener("change", ()=>{
             input.status = status.value;
+
+            const deletebtn= clone.querySelector(".delete-btn") as HTMLButtonElement;
+
+             deletebtn.addEventListener("click", () => {
+              tasks = tasks.filter(t => t !== input);
+              displayTasks();
+             })
          });
         tasklist.appendChild(clone);
 })}
