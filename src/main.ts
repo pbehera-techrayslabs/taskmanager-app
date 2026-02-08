@@ -40,7 +40,7 @@ function addtask() {
 function displayTasks() {
     const template= document.getElementById("task-template") as HTMLTemplateElement
   
-    //tasklist.innerHTML ="";
+    tasklist.innerHTML ="";
 
     tasks.forEach((input) => {
     
@@ -52,10 +52,11 @@ function displayTasks() {
          date.textContent=input.date;
 
          const status= clone.querySelector(".task-status") as HTMLSelectElement;
-
          status.value=input.status;
+         
          status.addEventListener("change", ()=>{
             input.status = status.value;
          });
         tasklist.appendChild(clone);
 })}
+
