@@ -24,12 +24,12 @@ function addtask() {
     return;
   }
    
-    const task: Task = {
+    const input: Task = {
         title: titleinput.value,
         date: dateinput.value,
         status: "pending"
     };
-    tasks.push(task);
+    tasks.push(input);
     displayTasks();
     
 
@@ -40,22 +40,22 @@ function addtask() {
 function displayTasks() {
     const template= document.getElementById("task-template") as HTMLTemplateElement
   
-    tasklist.innerHTML ="";
+    //tasklist.innerHTML ="";
 
-    tasks.forEach((task,index) => {
+    tasks.forEach((input) => {
     
         const clone = template.content.cloneNode(true) as DocumentFragment;
          const title=clone.querySelector(".task-name") as HTMLElement;
-         title.textContent= task.title;
+         title.textContent= input.title;
 
          const date=clone.querySelector(".task-date") as HTMLElement;
-         date.textContent=task.date;
+         date.textContent=input.date;
 
          const status= clone.querySelector(".task-status") as HTMLSelectElement;
 
-         status.value=task.status;
+         status.value=input.status;
          status.addEventListener("change", ()=>{
-            task.status = status.value;
+            input.status = status.value;
          });
         tasklist.appendChild(clone);
 })}
