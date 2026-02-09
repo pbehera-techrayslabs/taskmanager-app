@@ -49,6 +49,12 @@ function displayTasks() {
             displayTasks();
             settask();
         });
+        const editbtn = clone.querySelector(".edit-btn");
+        editbtn.addEventListener("click", () => {
+            const titleinput = document.getElementById("title");
+            const dateinput = document.getElementById("date");
+            displayTasks();
+        });
         tasklist.appendChild(clone);
     });
 }
