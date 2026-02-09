@@ -3,6 +3,13 @@ const button = document.getElementById("add-btn");
 button.addEventListener("click", addtask);
 const template = document.getElementById("task-template");
 const tasklist = document.getElementById("tasklist");
+const savetasks = localStorage.getItem("tasks");
+if (savetasks) {
+    tasks = JSON.parse(savetasks);
+}
+function settask() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 function addtask() {
     const titleinput = document.getElementById("title");
     const dateinput = document.getElementById("date");
@@ -10,29 +17,37 @@ function addtask() {
         alert("please fill out all fields");
         return;
     }
-    const task = {
+    const input = {
         title: titleinput.value,
         date: dateinput.value,
         status: "pending"
     };
-    tasks.push(task);
+    tasks.push(input);
     displayTasks();
+    settask();
     titleinput.value = "";
     dateinput.value = "";
 }
 function displayTasks() {
     const template = document.getElementById("task-template");
     tasklist.innerHTML = "";
-    tasks.forEach((task, index) => {
+    tasks.forEach((input) => {
         const clone = template.content.cloneNode(true);
         const title = clone.querySelector(".task-name");
-        title.textContent = task.title;
+        title.textContent = input.title;
         const date = clone.querySelector(".task-date");
-        date.textContent = task.date;
+        date.textContent = input.date;
         const status = clone.querySelector(".task-status");
-        status.value = task.status;
+        status.value = input.status;
         status.addEventListener("change", () => {
-            task.status = status.value;
+            input.status = status.value;
+            settask();
+        });
+        const deletebtn = clone.querySelector(".delete-btn");
+        deletebtn.addEventListener("click", () => {
+            tasks = tasks.filter(t => t !== input);
+            displayTasks();
+            settask();
         });
         tasklist.appendChild(clone);
     });
