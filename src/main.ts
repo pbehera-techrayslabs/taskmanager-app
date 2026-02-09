@@ -54,8 +54,8 @@ function displayTasks() {
   tasks.forEach((input) => {
 
     const clone = template.content.cloneNode(true) as DocumentFragment;
-    
-    
+
+
     const title = clone.querySelector(".task-name") as HTMLElement;
     title.textContent = input.title;
 
@@ -64,38 +64,38 @@ function displayTasks() {
     //status button
     const status = clone.querySelector(".status-select") as HTMLSelectElement;
     status.value = input.status;
-    
+
     status.addEventListener("change", () => {
       input.status = status.value;
-      
-        settask();
+
+      settask();
 
     });
-      //delete button
-      const deletebtn = clone.querySelector(".delete-btn") as HTMLButtonElement;
+    //delete button
+    const deletebtn = clone.querySelector(".delete-btn") as HTMLButtonElement;
     deletebtn.addEventListener("click", () => {
-        tasks = tasks.filter(t => t !== input);
-        settask();
-        displayTasks();
-        
-  });
-  //edit button
-  const editbtn= clone.querySelector(".edit-btn") as HTMLButtonElement;
+      tasks = tasks.filter(t => t !== input);
+      settask();
+      displayTasks();
 
-  editbtn.addEventListener("click", () => {
+    });
+    //edit button
+    const editbtn = clone.querySelector(".edit-btn") as HTMLButtonElement;
 
-    const titleinput = document.getElementById("title") as HTMLInputElement;
-    const dateinput = document.getElementById("date") as HTMLInputElement;
+    editbtn.addEventListener("click", () => {
 
-    titleinput.value=input.title;
-    dateinput.value= input.date;
+      const titleinput = document.getElementById("title") as HTMLInputElement;
+      const dateinput = document.getElementById("date") as HTMLInputElement;
 
-     tasks = tasks.filter(t => t !== input);
-    settask();
-    displayTasks();
+      titleinput.value = input.title;
+      dateinput.value = input.date;
+
+      tasks = tasks.filter(t => t !== input);
+      settask();
+      displayTasks();
+    })
+    tasklist.appendChild(clone);
+
   })
-  tasklist.appendChild(clone);
-  
-})
 }
 
