@@ -24,7 +24,7 @@ function settask() {
 }
 
 
-
+// task add
 function addtask() {
   const titleinput = document.getElementById("title") as HTMLInputElement;
   const dateinput = document.getElementById("date") as HTMLInputElement;
@@ -32,7 +32,7 @@ function addtask() {
     alert("please fill out all fields");
     return;
   }
-
+  // input set
   const input: Task = {
     title: titleinput.value,
     date: dateinput.value,
@@ -45,7 +45,7 @@ function addtask() {
   titleinput.value = "";
   dateinput.value = "";
 }
-
+//display task
 function displayTasks() {
   const template = document.getElementById("task-template") as HTMLTemplateElement
 
@@ -54,28 +54,32 @@ function displayTasks() {
   tasks.forEach((input) => {
 
     const clone = template.content.cloneNode(true) as DocumentFragment;
+    
+    
     const title = clone.querySelector(".task-name") as HTMLElement;
     title.textContent = input.title;
 
     const date = clone.querySelector(".task-date") as HTMLElement;
     date.textContent = input.date;
-
-    const status = clone.querySelector(".task-status") as HTMLSelectElement;
+    //status button
+    const status = clone.querySelector(".status-select") as HTMLSelectElement;
     status.value = input.status;
-
+    
     status.addEventListener("change", () => {
       input.status = status.value;
       
         settask();
-    });
 
+    });
+      //delete button
       const deletebtn = clone.querySelector(".delete-btn") as HTMLButtonElement;
     deletebtn.addEventListener("click", () => {
         tasks = tasks.filter(t => t !== input);
-        displayTasks();
         settask();
+        displayTasks();
+        
   });
-
+  //edit button
   const editbtn= clone.querySelector(".edit-btn") as HTMLButtonElement;
 
   editbtn.addEventListener("click", () => {
