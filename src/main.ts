@@ -17,6 +17,7 @@ const tasklist = document.getElementById("tasklist") as HTMLDivElement;
 const savetasks = localStorage.getItem("tasks");
 if (savetasks) {
   tasks = JSON.parse(savetasks);
+  displayTasks();
 }
 function settask() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -64,6 +65,7 @@ function displayTasks() {
 
     status.addEventListener("change", () => {
       input.status = status.value;
+      
         settask();
     });
 
@@ -81,9 +83,15 @@ function displayTasks() {
     const titleinput = document.getElementById("title") as HTMLInputElement;
     const dateinput = document.getElementById("date") as HTMLInputElement;
 
+    titleinput.value=input.title;
+    dateinput.value= input.date;
+
+     tasks = tasks.filter(t => t !== input);
+    settask();
     displayTasks();
   })
   tasklist.appendChild(clone);
+  
 })
 }
 

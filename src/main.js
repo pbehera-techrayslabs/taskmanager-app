@@ -6,6 +6,7 @@ const tasklist = document.getElementById("tasklist");
 const savetasks = localStorage.getItem("tasks");
 if (savetasks) {
     tasks = JSON.parse(savetasks);
+    displayTasks();
 }
 function settask() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -53,6 +54,10 @@ function displayTasks() {
         editbtn.addEventListener("click", () => {
             const titleinput = document.getElementById("title");
             const dateinput = document.getElementById("date");
+            titleinput.value = input.title;
+            dateinput.value = input.date;
+            tasks = tasks.filter(t => t !== input);
+            settask();
             displayTasks();
         });
         tasklist.appendChild(clone);
